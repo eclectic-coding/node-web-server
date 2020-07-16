@@ -1,23 +1,18 @@
-const express = require('express')
+const path = require('path');
+const express = require('express');
 
-const app = express()
+const app = express();
+const publicDirectoryPath = path.join(__dirname, '../public')
 
-app.get('', (req, res) => {
-    res.send('Hello express!')
-})
-
-app.get('/help', (req, res) => {
-    res.send('Help page')
-})
-
-app.get('/about', (req, res) => {
-    res.send('About')
-})
+app.use(express.static(publicDirectoryPath))
 
 app.get('/weather', (req, res) => {
-    res.send('Your weather')
-})
+  res.send({
+    forecast: 'It is snowing ... I wish.',
+    location: 'Wilmington NC'
+  });
+});
 
-app.listen(3000, () => {
-    console.log('Server is up on port 3000.')
-})
+app.listen(5000, () => {
+  console.log('Server is up on port 5000.');
+});
